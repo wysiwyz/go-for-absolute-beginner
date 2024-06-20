@@ -69,3 +69,27 @@ Go的語言特性
 2. IDE 安裝 (這裡使用 VSCODE)
 
 ## `booking-app`
+- 先裝好 `GO` extension
+- 初始化模組，會建立一個 `go.mod` 檔案
+  ```bash
+  go mod init <module path such go-for-absolute-beginner>
+  ```
+- 所有Go程式碼都必須屬於一個 package，也就是說 go file 的第一句話都是 `package ...`
+- declaration 
+  ```
+  func main() {}
+  ```
+- import fmt package
+- run command `go run main.go`
+
+## Variable and constants
+### variable
+- 用來存值
+- 可以想成是值的容器container
+- 提供變數一個名稱，用來在app其它地方做引用
+- 使用`,`逗號連接字串與變數時會自動加上空格
+  ```go
+  	var conferenceName = "Go Conference"
+	fmt.Println("Welcome to", conferenceName, "booking application")
+    // print Welcome to Go Conference booking application
+  ```
