@@ -124,5 +124,41 @@ fmt.Scan()
 
 ## What is a pointer?
 
-print.Scan(&userName) 否則terminal不會顯示輸入 user input 的要求
-這個 pointer 就是變數指向 memory addressj
+print.Scan(&userName) 要加`&`否則terminal不會顯示輸入 user input 的要求，
+這個 pointer 就是變數指向 memory address
+
+當我們初始化一個變數名稱而且賦值給它，就像是拿一個箱子，在箱子寫上名稱(variable)，然後把物品(value)放進去
+
+pointer 是另外一個變數，這個變數會指向另外一個變數的記憶體位置，在GO語言裡又稱之為 special variable
+
+C, C++ 有pointer的設計，但 Java, Javascript 沒有
+
+```go
+fmt.Scan(userName)
+fmt.Scan("") // 這裡傳的是值 pass by value
+
+fmt.Scan(&userName)
+fmt.Scan(0x14000102050) // 這裡傳的是參照 pass by reference
+```
+
+## Array 陣列
+- 固定 size
+  - size: 指的是這個 array 可以放多少個元素
+- 只能放相同型別的元素
+- 向陣列增加元素，透過陣列的index(索引位置)增加或存取元素
+  ```go
+  nameOfArray[3] = "the string added to index 3 of the array"
+  ```
+
+## Slice 切片
+- slice 是 array 的抽象話
+- slices 更彈性化：variable length or get an sub-array of its own
+- 另外 slice 也是基於 index 具有切片大小，但有需要時可以重新調整長度
+  ```go
+  nameOfSlice = append(nameOfSlice, "the string added to the end of a slice")
+  ```
+- 宣告時也可以用 `:=` 這語法糖
+  ```go
+  bookings := []string{}
+  ```
+- 
