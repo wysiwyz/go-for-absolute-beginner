@@ -93,3 +93,36 @@ Go的語言特性
 	fmt.Println("Welcome to", conferenceName, "booking application")
     // print Welcome to Go Conference booking application
   ```
+
+### Integer Types
+- Whole numbers
+| Sr.no. | Types and Description                                                |
+|--------|----------------------------------------------------------------------|
+| uint8  | unsigned 8-bit integers (0 to 255)                                   |
+| uint16 | unsigned 16-bit integers (0 to 65535)                                |
+| uint32 | unsigned 32-bit integers (0 to 4294967295)                           |
+| uint64 | unsigned 64-bit integers (0 to 18446744073709551615)                 |
+| int8   | signed 8-bit integers (-128 to 127)                                  |
+| int16  | signed 16-bit integers (-32768 to 32767)                             |
+| int32  | signed 32-bit integers (-2147483648 to 2147483647)                   |
+| int64  | signed 64-bit integers (-9223372036854775808 to 9223372036854775807) |
+
+## Floating Types
+- Numbers that contain a decimal component (real numbers)
+
+## Getting user input
+fmt package provides functions for formatted input and output (I/O)
+- print messages
+- collect user input
+- write into a file
+```go
+fmt.Printf("formated content %T and %v", 1, "String")
+fmt.Print("content without line break")
+fmt.Println("content with line break at the end")
+fmt.Scan()
+```
+
+## What is a pointer?
+
+print.Scan(&userName) 否則terminal不會顯示輸入 user input 的要求
+這個 pointer 就是變數指向 memory addressj
