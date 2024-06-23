@@ -161,4 +161,31 @@ fmt.Scan(0x14000102050) // 這裡傳的是參照 pass by reference
   ```go
   bookings := []string{}
   ```
+
+## Loops in GO
+- 迴圈：重複執行一段程式碼很多次
+- GO語言裡面只有`for loop`，沒有 while, do while 或 for-each 迴圈
+- 底線佔位符 blank identifier
+  - 用來忽略不會用到的變數
+  - 如果變數沒使用到，需要 make it explicit
+
+## If else in GO
+- conditionals
+  - `=` for assigning values; `==` for comparing values
+- 如果下單了比庫存還多的數量，使用 if + break(or continue) 判斷
+  ```bash
+  Enter number of tickets: 
+  43
+  ...
+  Enter number of tickets: 
+  10
+  Thank you pleee her for booking 10 tickets.
+  You will receive a confirmation email at y@o
+  77g18446744073709551613 tickets remaianing for Go Conference
+  The first names of bookings are: [yiwen pleee]
+  ```
+
+## else if statement
+- between if and else block
+
 - 

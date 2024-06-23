@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func main() {
 	var conferenceName = "Go Conference"
@@ -15,32 +18,54 @@ func main() {
 	fmt.Println("Get your tickets here to attend")
 
 	// var bookings = [50]string{"Hailey", "Honda", "Alice"}
-	var bookings = [50]string // 空陣列不一定要加 {}  var bookings = [50]string{}
+	var bookings = []string{}
 
-	var firstName string
-	var lastName string
-	var email string
-	var userTickets int32
+	// for remainingTickets > 0 && len(bookings) < 50 {
+	for {
+		var firstName string
+		var lastName string
+		var email string
+		var userTickets int32
 
-	fmt.Println("Enter your first name: ")
-	fmt.Scan(&firstName)
+		fmt.Println("Enter your first name: ")
+		fmt.Scan(&firstName)
 
-	fmt.Println("Enter your last name: ")
-	fmt.Scan(&lastName) // save the value that user enters
-	fmt.Printf("This is a pointer special variable %v\n", &lastName)
-	fmt.Printf("This is the variable \"%v\" that is pointed by above\n", &lastName)
+		fmt.Println("Enter your last name: ")
+		fmt.Scan(&lastName) // save the value that user enters
+		fmt.Printf("This is a pointer special variable %v\n", &lastName)
+		fmt.Printf("This is the variable \"%v\" that is pointed by above\n", &lastName)
 
-	fmt.Println("Enter your email address: ")
-	fmt.Scan(&email)
+		fmt.Println("Enter your email address: ")
+		fmt.Scan(&email)
 
-	fmt.Println("Enter number of tickets: ")
-	fmt.Scan(&userTickets)
+		fmt.Println("Enter number of tickets: ")
+		fmt.Scan(&userTickets)
 
-	remainingTickets = remainingTickets - uint(userTickets)
-	// bookings[0] = firstName + " " + lastName
-	bookings = append(bookings, firstName+" "+lastName)
+		if userTickets <= int32(remainingTickets) {
+			remainingTickets = remainingTickets - uint(userTickets)
+			// bookings[0] = firstName + " " + lastName
+			bookings = append(bookings, firstName+" "+lastName)
 
-	fmt.Printf("The whole array: %v")
+			fmt.Printf("Thank you %v %v for booking %v tickets.\n You will receive a confirmation email at %v\n", firstName, lastName, userTickets, email)
+			fmt.Printf("%v tickets remaining for %v\n", remainingTickets, conferenceName)
 
-	fmt.Printf("Thank you %v %v for booking %v tickets.\n You will receive a confirmation email at %v\n77g", firstName, lastName, userTickets, email)
+			firstNames := []string{}
+
+			for _, booking := range bookings {
+				var names = strings.Fields(booking)
+				firstNames = append(firstNames, names[0])
+			}
+
+			fmt.Printf("The first names of bookings are: %v\n", firstNames)
+
+			if remainingTickets == 0 {
+				fmt.Println("Our conference is booked out. Come back next year.")
+				break
+			}
+		} else {
+			fmt.Printf("We only have %v tickets remaining, so you can't book %v tickets.\n", remainingTickets, userTickets)
+			continue
+		}
+
+	}
 }
