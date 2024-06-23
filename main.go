@@ -3,14 +3,14 @@ package main
 import (
 	"fmt"
 	"go-for-absolute-beginner/helper"
-	"strings"
+	"strconv"
 )
 
 const conferenceTickets = 30
 
 var conferenceName = "Go Conference"
 var remainingTickets uint = 50
-var bookings = []string{}
+var bookings = make([]map[string]string, 0)
 
 func main() {
 
@@ -56,9 +56,8 @@ func greetUsers() {
 
 func getFirstNames() []string {
 	firstNames := []string{}
-	for _, booking := range bookings {
-		var names = strings.Fields(booking)
-		firstNames = append(firstNames, names[0])
+	for _, userData := range bookings {
+		firstNames = append(firstNames, userData["firstName"])
 	}
 	return firstNames
 }
@@ -86,8 +85,19 @@ func getUserInput() (string, string, string, uint) {
 
 func bookTicket(userTickets uint, firstName string, lastName string, email string) {
 	remainingTickets = remainingTickets - userTickets
-	// bookings[0] = firstName + " " + lastName
-	bookings = append(bookings, firstName+" "+lastName)
+
+	// create a map for a user
+	var userData = make(map[string]string)
+	// assign key and value
+	userData["firstName"] = firstName
+	userData["lastName"] = lastName
+	userData["email"] = email
+	// GO key, value 的資料型態不能混合
+	userData["numberOfTickets"] = strconv.FormatUint(uint64(userTickets), 10)
+	// string convert 轉成十進制，所以如果傳入2就會是二進制
+
+	bookings = append(bookings, userData)
+	fmt.Printf("List of bookings is %v\n", bookings)
 
 	fmt.Printf("Thank you %v %v for booking %v tickets.\n You will receive a confirmation email at %v\n", firstName, lastName, userTickets, email)
 	fmt.Printf("%v tickets remaining for %v\n", remainingTickets, conferenceName)

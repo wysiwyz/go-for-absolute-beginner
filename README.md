@@ -301,3 +301,15 @@ switch city {
    - 在 function 以外宣告
    - 且名稱第一個字母大寫
    - 可以跨不同 packages 使用
+
+## Maps
+就目前進度而言，每當一個user完成預訂，只會存姓名，現在要使用 maps 建立多個 key-value 對
+```
+firstName: "Yoshimite"
+lastName: "Yeji"
+email: "how@how"
+ticket: 3
+```
+- Maps unique keys to values
+- 使用 key 存取 value
+- 用內建函式 `make(mapp[Tk]Tv)` 建立一個空白的 map
