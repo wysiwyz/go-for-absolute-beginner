@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"go-for-absolute-beginner/helper"
+	"sync"
+	"time"
 )
 
 const conferenceTickets = 30
@@ -20,6 +22,8 @@ type UserData struct {
 	numberOfTickets uint
 }
 
+var wg = sync.WaitGroup{}
+
 func main() {
 
 	greetUsers()
@@ -33,6 +37,11 @@ func main() {
 
 		if isValidName && isValidEmail && isValidTicketNumber {
 			bookTicket(userTickets, firstName, lastName, email)
+
+			// wg.Add(1)
+			go sendTicket(userTickets, firstName, lastName, email)
+
+			// 啟動另外一條 thread/goroutine 就不會阻塞主要程式碼
 
 			firstNames := getFirstNames()
 			fmt.Printf("The first names of bookings are: %v\n", firstNames)
@@ -52,6 +61,7 @@ func main() {
 				fmt.Println("number of tickets you entered is invalid")
 			}
 		}
+		// wg.Wait()  // uncomment this if your code is not for-looped
 
 	}
 }
@@ -107,4 +117,14 @@ func bookTicket(userTickets uint, firstName string, lastName string, email strin
 
 	fmt.Printf("Thank you %v %v for booking %v tickets.\n You will receive a confirmation email at %v\n", firstName, lastName, userTickets, email)
 	fmt.Printf("%v tickets remaining for %v\n", remainingTickets, conferenceName)
+}
+
+func sendTicket(userTickets uint, firstName string, lastName string, email string) {
+	time.Sleep(50 * time.Second) // was 10, now 50
+	var ticket = fmt.Sprintf("%v tickets for %v %v", userTickets, firstName, lastName)
+	// sprintf: 存成字串
+	fmt.Println("####################")
+	fmt.Printf("Sending ticket:\n %v \nto email address %v\n", ticket, email)
+	fmt.Println("####################")
+	// wg.Done()  // uncomment this if your code is not for-looped
 }

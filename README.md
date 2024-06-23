@@ -343,3 +343,69 @@ type statement - 客製的 type
 
 struct - structure
 - 建立一個預先定義好 key(field) 的型態
+
+## Goroutines
+通常像 `func sendTicket()` 這樣的函式會比較耗時，可能會使用到PDF產生功能，再使用 email client 發送郵件
+
+假設需要耗時 10 秒鐘，可以用 `time.Sleep(10 * time.Second)` 來模擬
+
+### time - 時間相關的函式
+- `Sleep()` 函式會依傳入的時長，停止或者阻塞當前的執行緒 (thread or goroutine) 正在執行的工作
+
+### 目前 program 的執行
+- main goroutine
+- 預設是 sequential code execution
+- 按照順序，一個 task(code) 接著另一個 task(code) 執行
+
+### 使用 concurrency 將程式效率最佳化
+- concurrency in GO is cheap and easy
+- 呼叫需要比較花時間的 function 時，在前面加上 go 關鍵字
+  ```go
+  go sendTicket(userTickets, firstName, lastName, email)
+  ```
+- 這樣要寄送一封票券信件時，就會另外起一個執行緒/goroutine，執行完刪除這thread/goroutine
+- *A goroutine is a **lightweight thread** managed by the Go runtime*
+- 這樣產生票券＆寄送信件的函式就會在背景執行，不會影響另一個 userData 輸入
+
+### Synchronizing goroutines
+如果沒有for-loop，即程式只接收一筆 userData 輸入結束了
+
+代表 main thread 不等待 additional thread 走完，就自己結束了，要怎麼解決？
+
+Waitgroup function
+- waits for the launched goroutine to finish
+- syntax
+  ```Go
+  var wg = sync.WaitGroup()
+  wg.Add(1)
+
+  wg.Wait()
+
+  wg.Done()
+  ```
+- Three functions:
+  1. Add: Sets the number of goroutines to wait for (increases the counter by the provided number)
+  2. Wait: Blocks until the WaitGroup counter is 0
+  3. Done: Decrements the WaitGroup counter by 1. So this is called by the goroutine to indicate that it's finished
+
+## 比較其他語言
+1. 其他語言要撰寫 concurrency code 比較複雜
+2. overhead 比較多
+3. 建立 new thread 比較花時間 (slow start up time)
+4. more memory space allocated
+
+### 到底差別在哪
+- GO 的 goroutine 用的是 green thread
+- 是 abstraction of an actuaal thread
+- 由 go runtine 管理，我們只跟 high level goroutine 交互
+- cheaper & lightweight
+- you can run hundreds of thousands or millions goroutines without affecting the performance
+- channels that offers built in functionality for goroutines to talk with each other
+
+
+- OS threads
+  - managed by kernel
+  - are hardware dependent
+  - cost of these threads are higher
+  - higher startup time
+  - no easy communication between threads
