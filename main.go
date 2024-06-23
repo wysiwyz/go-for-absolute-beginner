@@ -3,14 +3,22 @@ package main
 import (
 	"fmt"
 	"go-for-absolute-beginner/helper"
-	"strconv"
 )
 
 const conferenceTickets = 30
 
 var conferenceName = "Go Conference"
 var remainingTickets uint = 50
-var bookings = make([]map[string]string, 0)
+
+// var bookings = make([]map[string]string, 0)
+var bookings = make([]UserData, 0)
+
+type UserData struct {
+	firstName       string
+	lastName        string
+	email           string
+	numberOfTickets uint
+}
 
 func main() {
 
@@ -57,7 +65,7 @@ func greetUsers() {
 func getFirstNames() []string {
 	firstNames := []string{}
 	for _, userData := range bookings {
-		firstNames = append(firstNames, userData["firstName"])
+		firstNames = append(firstNames, userData.firstName)
 	}
 	return firstNames
 }
@@ -87,14 +95,12 @@ func bookTicket(userTickets uint, firstName string, lastName string, email strin
 	remainingTickets = remainingTickets - userTickets
 
 	// create a map for a user
-	var userData = make(map[string]string)
-	// assign key and value
-	userData["firstName"] = firstName
-	userData["lastName"] = lastName
-	userData["email"] = email
-	// GO key, value 的資料型態不能混合
-	userData["numberOfTickets"] = strconv.FormatUint(uint64(userTickets), 10)
-	// string convert 轉成十進制，所以如果傳入2就會是二進制
+	var userData = UserData{
+		firstName:       firstName,
+		lastName:        lastName,
+		email:           email,
+		numberOfTickets: userTickets,
+	}
 
 	bookings = append(bookings, userData)
 	fmt.Printf("List of bookings is %v\n", bookings)

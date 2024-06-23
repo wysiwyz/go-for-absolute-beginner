@@ -313,3 +313,33 @@ ticket: 3
 - Maps unique keys to values
 - 使用 key 存取 value
 - 用內建函式 `make(mapp[Tk]Tv)` 建立一個空白的 map
+
+## Structs
+如果要收集 user 相關的資料，例如生日是 Date，是否要接收行銷廣告 bool，參加者名稱是 slice of maps (`make([]map[string]string, 0)`)
+
+也會有其他 type 像是 conference 這樣混合型別的資料
+
+| variable   | type     |
+|------------|----------|
+| cities     | []string |
+| heldOn     | []string |
+| noOfPeople | int      |
+
+Struct stands for "structure", can hold mixed data types
+
+Syntax:
+```GO
+// type keyword + name-of-this-struct + struct keyword
+type UserData struct {
+	firstName       string
+	lastName        string
+	email           string
+	numberOfTickets uint
+}
+```
+type statement - 客製的 type
+- type keyword 會以你指定的名稱建立一個新的 type
+- 實際上也可以基於其他資料型別建立 type (例如 int, string)
+
+struct - structure
+- 建立一個預先定義好 key(field) 的型態
