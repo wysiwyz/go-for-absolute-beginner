@@ -185,7 +185,45 @@ fmt.Scan(0x14000102050) // 這裡傳的是參照 pass by reference
   The first names of bookings are: [yiwen pleee]
   ```
 
-## else if statement
+## Else if statement
 - between if and else block
 
-- 
+## Conditionalas in for loop
+```go
+for true {
+    // do something infinitely until break
+}
+
+for {
+    // do something until it's exit using break word
+    // more common
+}
+```
+
+## User input validation 輸入驗證
+- 使用`len()`
+  - 內建功能，回傳變數的長度，依型別不同
+    - arrays & slices: list的大小（含有多少元素）
+    - strings: 字符的數量
+- logical operator `&&`
+    - 稱為邏輯 AND 運算元
+    - 兩邊的條件都必須為真，整個expression才會為真
+
+## Switch statement
+- 使單一一個變數能同時跟許多個值做比較/驗證
+```go
+city := "London"
+
+switch city {
+    case "New York":
+        // 執行預定 New York 會議的票券
+    case "Singapore", "Hong Kong":
+        // consolidate several values 
+    case "London", "Berlin":
+        // execute the same logic
+    case "Mexico city":
+        // 執行預定 Mexico city 會議的票券
+    default:
+        fmt.Print("No valid city selected")
+}
+```
