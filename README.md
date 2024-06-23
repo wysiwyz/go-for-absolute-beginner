@@ -227,3 +227,26 @@ switch city {
         fmt.Print("No valid city selected")
 }
 ```
+
+## Encapsulate logics with functions
+- 將程式碼封裝進各自的container (即 function)
+- 每個function有自己的名稱
+- 只有主程式呼叫到 function 名稱，才會被執行
+- 可以用來減少重複的程式碼
+
+### Functions with return values
+- 可以接收傳入參數，再傳回return value
+- input/output的參數/回傳值都要明確定義型別
+- Return multiple values 一個函式可以回傳多個值
+- 如果有多個回傳值，所有回傳值的型別，要在函式簽名中用小括號括起來
+
+### Make code cleaner with package level variables
+- 定義多個 functions 都能共用的變數，這樣就不用傳來傳去
+- package level variables:
+  - 定義在所有 functions 之外
+  - 相同 package 底下的所有 files, 所有 functions 都可以使用
+  - 無法使用 `:=` 語法糖宣告
+
+### More use cases of functions
+- 將類似的邏輯分在同一組
+- 重複使用邏輯，減少重複程式碼
