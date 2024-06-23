@@ -48,7 +48,7 @@ Go的語言特性
     > dynamic typed: 指的是變數的資料型別不用在編譯時期就決定好，可以在這變數的生命週期中變更資料型別）
   - C++: 靜態型別語言提供的效率跟安全性
 - 屬於 Server-side 後端語言
-  - 可以用在 microservices 為服務
+  - 可以用在 microservices 微服務
   - web 網頁應用程式
   - 資料庫服務
 - 許多雲端相關服務都是GO寫的：docker, hashiCorp vault, kubernetes, cockroachDB
@@ -89,13 +89,14 @@ Go的語言特性
 - 提供變數一個名稱，用來在app其它地方做引用
 - 使用`,`逗號連接字串與變數時會自動加上空格
   ```go
-  	var conferenceName = "Go Conference"
-	fmt.Println("Welcome to", conferenceName, "booking application")
-    // print Welcome to Go Conference booking application
+  var conferenceName = "Go Conference"
+  fmt.Println("Welcome to", conferenceName, "booking application")
+  // print Welcome to Go Conference booking application
   ```
 
 ### Integer Types
 - Whole numbers
+
 | Sr.no. | Types and Description                                                |
 |--------|----------------------------------------------------------------------|
 | uint8  | unsigned 8-bit integers (0 to 255)                                   |
@@ -124,10 +125,10 @@ fmt.Scan()
 
 ## What is a pointer?
 
-print.Scan(&userName) 要加`&`否則terminal不會顯示輸入 user input 的要求，
+print.Scan(&userName) 要加`&`否則 terminal 不會顯示輸入 user input 的要求，
 這個 pointer 就是變數指向 memory address
 
-當我們初始化一個變數名稱而且賦值給它，就像是拿一個箱子，在箱子寫上名稱(variable)，然後把物品(value)放進去
+當我們初始化一個變數名稱而且賦值給它，就像是拿一個箱子，在箱子寫上名稱(variable)，然後把物品 (value) 放進去
 
 pointer 是另外一個變數，這個變數會指向另外一個變數的記憶體位置，在GO語言裡又稱之為 special variable
 
@@ -151,9 +152,9 @@ fmt.Scan(0x14000102050) // 這裡傳的是參照 pass by reference
   ```
 
 ## Slice 切片
-- slice 是 array 的抽象話
-- slices 更彈性化：variable length or get an sub-array of its own
-- 另外 slice 也是基於 index 具有切片大小，但有需要時可以重新調整長度
+- slice 是 array 的抽象化
+- slices is more flexible with variable length or getting an sub-array of its own
+- 另外 slice 也是基於 index 具有 slice length/size of elements，但有需要時可以重新調整長度
   ```go
   nameOfSlice = append(nameOfSlice, "the string added to the end of a slice")
   ```
@@ -250,3 +251,53 @@ switch city {
 ### More use cases of functions
 - 將類似的邏輯分在同一組
 - 重複使用邏輯，減少重複程式碼
+
+
+## Packages in Go
+- 用 package 組織 GO programs，一個 package 就是 `<filename>.go` 檔案的集合
+  ```go
+  package main
+  
+  // some functions moved from main.go into helper.go
+  ```
+  ```bash
+  go run main.go helper.go
+  // or below if the files are in the same directory
+  go run .
+  ```
+
+### Multiple packages in your application
+- 以 booking-app 為例的話，可以依目的地/國家區分不同 package
+  - singapore package
+  - vienna package
+  - common package
+- 步驟：
+  1. 將 helper.go 第一行 package main 改成 `package helper`
+  2. 在專案目錄下建立新 folder `helper` 並將 helper.go 移動至此目錄下
+  3. 調用到 helper 其中函式的 main.go 需要 import helper package
+     - 這個模組中，所有 package 的路徑都定義在 `go.mod` 檔案裡面
+       ```GO
+       import (
+           "fmt"
+           "strings"
+           "go-for-absolute-beginner/helper"
+        )
+       ```
+     - 被調用的函式要加上 package名稱. 的前綴，例 `helper.validateUserInput()`
+  4. 被調用的函式自己也要 explictedly exported by its package
+     - 把函式名稱改大駝峰，句首大寫 `func ValidateUserInput() {...}
+  5. 另外如果要 export package level variable 也可以使用句首大寫的方式
+
+### Scope rules (變數的作用域)
+變數的作用域分成三類
+1. Local (function level variable)
+   - 在函式 function 裡面宣告
+   - 在 block 裡面宣告 (例如 for 迴圈裡面, if-else 某條件下)
+   - 只能在該 function 或 block 裡面使用
+2. Package
+   - 在 function 以外宣告
+   - 相同 package 不同檔案都能存取使用
+3. Global
+   - 在 function 以外宣告
+   - 且名稱第一個字母大寫
+   - 可以跨不同 packages 使用
