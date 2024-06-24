@@ -5,6 +5,8 @@ import (
 	"go-for-absolute-beginner/helper"
 	"sync"
 	"time"
+
+	"rsc.io/quote"
 )
 
 const conferenceTickets = 30
@@ -67,6 +69,7 @@ func main() {
 }
 
 func greetUsers() {
+	fmt.Println(quote.Go())
 	// fmt.Printf("conferenceTickets is %T, remainingTickets is %T, conferenceName is %T\n", conferenceTickets, remainingTickets, conferenceName)
 	fmt.Printf("Welcome to %v booking application\n", conferenceName)
 	fmt.Printf("Welcome to %v tickets and %v are still available.\n", conferenceTickets, remainingTickets)

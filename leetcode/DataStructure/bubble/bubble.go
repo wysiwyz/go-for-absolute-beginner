@@ -9,6 +9,8 @@ func main() {
 }
 
 func BubbleSort(arr *[5]int) {
+	var name, age = "Jennifer", 22
+	fmt.Println("Hello how are you?", name, "Your daugher is", age, "years old")
 	fmt.Println("排序前的 arr =", *arr)
 	temp := 0
 	for i := 0; i < len(arr)-1; i++ {

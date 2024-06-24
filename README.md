@@ -90,9 +90,36 @@ Go的語言特性
 - 使用`,`逗號連接字串與變數時會自動加上空格
   ```go
   var conferenceName = "Go Conference"
+
   fmt.Println("Welcome to", conferenceName, "booking application")
   // print Welcome to Go Conference booking application
   ```
+
+#### Notes
+- `go.sum` 檔案
+  - 在指令列輸入 `go mod tidy` 指令，會分析程式碼，移除不用的 dependency，增加缺少的 dependency
+  - 另外會新增或更新一個`go.sum`檔案，這檔案是用來記錄跟校驗各個 module dependency 的 hash 值
+  - 下面這些指令都有可能會更新`go.sum`檔案
+    ```bash
+    # analyze your code, remove unused dependency and add missing dependencies
+    go mod tidy
+
+    # build, download new dependency module, or update version of existing module
+    go build
+
+    # run test and update new dependency module
+    go test
+
+    # install or update module
+    go get <example.dependency.com/some/module>
+
+    # download all the modules listed in go.mod file
+    go mod download
+
+    # use for build project offline
+    go mod vendor
+    ```
+
 
 ### Integer Types
 - Whole numbers
